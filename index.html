@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Собрана — авторские женские топы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:           #fdfaf7;
+      --bg-alt:       #f3ece4;
+      --text:         #2c2420;
+      --muted:        #9a8880;
+      --accent:       #7c4f2f;
+      --accent-h:     #6a4228;
+      --border:       #e8ddd4;
+      --white:        #ffffff;
+      --r:            0.3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    /* ── HEADER ──────────────────────────── */
+    header {
+      padding: 24px 40px;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── WRAPPER ─────────────────────────── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── ABOUT ───────────────────────────── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      padding: 96px 0;
+    }
+    .about-photo {
+      aspect-ratio: 3/4;
+      background: var(--bg-alt);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+    /* Замена заглушки: <img src="author.jpg" alt="Автор" style="width:100%;height:100%;object-fit:cover;display:block;"> */
+    .about-text h2 { font-size: 40px; margin-bottom: 24px; }
+    .about-text p  { color: var(--muted); margin-bottom: 16px; }
+
+    /* ── PRODUCT CARD ────────────────────── */
+    .product-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── GALLERY ─────────────────────────── */
+    .gallery { position: relative; overflow: hidden; user-select: none; }
+    .gallery-track {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+    }
+    .gallery-slide {
+      min-width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--bg-alt);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    /* Замена: внутри .gallery-slide поставьте <img src="foto.jpg" ...> */
+    .gallery-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px; height: 36px;
+      background: rgba(253,250,247,.85);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--r);
+      z-index: 2;
+    }
+    .gallery-btn:hover { background: var(--white); }
+    .gallery-btn.prev { left: 12px; }
+    .gallery-btn.next { right: 12px; }
+
+    .gallery-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      z-index: 2;
+    }
+    .gallery-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background var(--r);
+    }
+    .gallery-dot.on { background: var(--text); }
+
+    /* ── VIDEO PLACEHOLDER ───────────────── */
+    .video-wrap {
+      width: 100%;
+      aspect-ratio: 9/16;
+      max-height: 280px;
+      background: var(--bg-alt);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      cursor: pointer;
+    }
+    /* Замена заглушки: <video src="reel.mp4" autoplay muted loop playsinline style="width:100%;max-height:280px;object-fit:cover;display:block;"> */
+    .video-play {
+      width: 44px; height: 44px;
+      border: 1.5px solid var(--muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── PRODUCT INFO ────────────────────── */
+    .product-info h2 { font-size: 34px; margin-bottom: 6px; }
+    .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .product-desc { color: var(--muted); margin-bottom: 28px; }
+
+    /* ── SIZE CALCULATOR ─────────────────── */
+    .size-calc {
+      background: var(--bg-alt);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .size-calc h4 { font-size: 19px; margin-bottom: 4px; }
+    .calc-note { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+
+    .calc-fields {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 14px;
+    }
+    .calc-field { flex: 1; }
+    .calc-sep {
+      flex-shrink: 0;
+      padding: 0 8px 11px;
+      color: var(--border);
+      font-size: 18px;
+      line-height: 1;
+    }
+    .calc-field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .calc-field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--r);
+      -moz-appearance: textfield;
+    }
+    .calc-field input::-webkit-inner-spin-button,
+    .calc-field input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .calc-field input:focus { border-color: var(--accent); }
+
+    .calc-result {
+      padding: 13px 16px;
+      background: var(--white);
+      border-left: 2px solid var(--border);
+      font-size: 14px;
+      color: var(--muted);
+      transition: border-color var(--r), color var(--r);
+      line-height: 1.5;
+    }
+    .calc-result.on { color: var(--text); border-color: var(--accent); }
+
+    /* ── SIZE TABLE TOGGLE ───────────────── */
+    .table-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      padding: 4px 0;
+      transition: color var(--r);
+    }
+    .table-toggle:hover { color: var(--text); }
+    .table-toggle svg { transition: transform var(--r); flex-shrink: 0; }
+    .table-toggle.open svg { transform: rotate(180deg); }
+
+    .table-wrap {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease;
+    }
+    .table-wrap.open { max-height: 200px; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th {
+      text-align: left;
+      padding: 8px 12px;
+      background: rgba(0,0,0,.03);
+      font-weight: 400;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+
+    /* ── BUTTONS ─────────────────────────── */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 17px 24px;
+      background: var(--text);
+      color: var(--white);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--r);
+      margin-top: 20px;
+    }
+    .btn:hover { background: var(--accent); }
+
+    /* ── REVIEWS ─────────────────────────── */
+    .reviews { padding: 80px 0; border-top: 1px solid var(--border); }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .reviews h2 { font-size: 36px; margin-bottom: 40px; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .review-ph {
+      aspect-ratio: 4/3;
+      background: var(--bg-alt);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    /* Замена: <img src="review_N.jpg" alt="Отзыв" style="width:100%;height:100%;object-fit:cover;"> */
+
+    /* ── CARE + EXTRA VIDEOS ─────────────── */
+    .extra { padding: 80px 0; border-top: 1px solid var(--border); }
+    .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+
+    .extra-videos { display: flex; flex-direction: column; gap: 10px; }
+    .extra-videos h3 { font-size: 26px; margin-bottom: 16px; }
+
+    .care h3 { font-size: 26px; margin-bottom: 20px; }
+    .care-list { list-style: none; }
+    .care-list li {
+      display: flex;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .care-list li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+
+    /* ── FOOTER ──────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 56px 40px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-socials { display: flex; flex-direction: column; gap: 10px; }
+    .footer-socials a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color var(--r);
+    }
+    .footer-socials a:hover { color: var(--text); }
+    .footer-legal { font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .footer-legal .ph { font-style: italic; color: var(--border); }  /* реквизиты-заглушки */
+    .footer-links { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color var(--r);
+    }
+    .footer-links a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* ── MODAL ───────────────────────────── */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(44,36,32,.55);
+      z-index: 900;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+    .modal-bg.open { display: flex; }
+
+    .modal {
+      background: var(--white);
+      width: 100%;
+      max-width: 540px;
+      padding: 48px 40px;
+      position: relative;
+      margin: auto;
+    }
+    .modal-x {
+      position: absolute;
+      top: 16px; right: 20px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal h2 { font-size: 28px; margin-bottom: 6px; }
+    .modal-sub {
+      font-size: 13px;
+      color: var(--muted);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── FORM ────────────────────────────── */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--r);
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--accent); }
+
+    .delivery-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .del-opt {
+      padding: 13px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-align: center;
+      font-size: 13px;
+      transition: all var(--r);
+    }
+    .del-opt.on { border-color: var(--accent); background: var(--bg-alt); }
+
+    .wb-link {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .wb-link:hover { text-decoration: underline; }
+
+    #sdek-block { display: none; margin-bottom: 20px; }
+    #cdek-map {
+      width: 100%;
+      height: 280px;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+    }
+    .sdek-ph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    #sdek-chosen { font-size: 13px; color: var(--muted); margin-top: 8px; display: none; }
+
+    .check-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .check-row input[type=checkbox] {
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      accent-color: var(--accent);
+    }
+    .check-row label { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .check-row a { color: var(--accent); text-decoration: none; }
+    .check-row a:hover { text-decoration: underline; }
+
+    .btn-pay {
+      display: block;
+      width: 100%;
+      padding: 17px 24px;
+      background: var(--text);
+      color: var(--white);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--r), opacity var(--r);
+      margin-top: 28px;
+      opacity: .35;
+      pointer-events: none;
+    }
+    .btn-pay.on { opacity: 1; pointer-events: auto; }
+    .btn-pay.on:hover { background: var(--accent); }
+
+    /* ── SUCCESS / ERROR ─────────────────── */
+    .msg { display: none; text-align: center; padding: 16px 0; }
+    .msg.show { display: block; }
+    .msg h3 { font-size: 28px; margin-bottom: 12px; }
+    .msg p { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+    .error-tips {
+      text-align: left;
+      margin-top: 16px;
+      padding: 16px 18px;
+      background: var(--bg-alt);
+    }
+    .error-tips li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 4px 0;
+      list-style: none;
+      display: flex;
+      gap: 10px;
+    }
+    .error-tips li::before { content: '—'; color: var(--accent); }
+
+    /* ── SCROLL REVEAL ───────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 900px) {
+      .wrap { padding: 0 24px; }
+      header { padding: 20px 24px; }
+      footer { padding: 48px 24px; }
+
+      .about, .product-card, .extra-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .about { padding: 64px 0; }
+      .product-card { padding: 60px 0; }
+
+      .calc-fields { flex-direction: column; gap: 8px; }
+      .calc-sep { display: none; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+      .modal { padding: 36px 24px; }
+    }
+
+    @media (max-width: 520px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+════════════════════════════════════════ -->
+<header>
+  <a class="logo" href="#">Собрана</a>
+</header>
+
+
+<!-- ══════════════════════════════════════
+     О БРЕНДЕ
+════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="about reveal">
+
+    <div class="about-photo">
+      <!--
+        ЗАГЛУШКА ФОТО АВТОРА
+        Замените содержимое блока на:
+        <img src="img/author.jpg" alt="Автор бренда Собрана" style="width:100%;height:100%;object-fit:cover;display:block;">
+      -->
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="14" r="7" stroke="#c9b9af" stroke-width="1.2"/>
+        <path d="M4 38c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#c9b9af" stroke-width="1.2"/>
+      </svg>
+      <span>author.jpg</span>
+    </div>
+
+    <div class="about-text">
+      <h2>О бренде</h2>
+      <!--
+        ЗАГЛУШКА ТЕКСТА — замените на текст от автора (2–3 предложения, живой и личный тон)
+      -->
+      <p>
+        Меня зовут [Имя], и Собрана — это то, что я шью для себя и для вас. Каждая вещь — маленькая партия, мой выбор ткани, моя выкройка.
+      </p>
+      <p>
+        Продаю напрямую, без посредников. Так честнее — и для меня, и для вас.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     ТОВАР 1 — ТОП ШОКОЛАДНЫЙ
+════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="product-card reveal" id="product-1">
+
+    <!-- Галерея -->
+    <div class="gallery" data-id="1">
+      <div class="gallery-track">
+        <!--
+          ЗАГЛУШКИ ФОТО — замените каждый .gallery-slide на:
+          <div class="gallery-slide"><img src="img/choc/1.jpg" alt="Топ шоколадный"></div>
+        -->
+        <div class="gallery-slide">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="1" stroke="#c9b9af" stroke-width="1.2"/><path d="M2 12l8-4 8 6 6-3 6 3" stroke="#c9b9af" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <span>top_choc_1.jpg</span>
+        </div>
+        <div class="gallery-slide"><span>top_choc_2.jpg</span></div>
+        <div class="gallery-slide"><span>top_choc_3.jpg</span></div>
+        <div class="gallery-slide"><span>top_choc_4.jpg</span></div>
+        <div class="gallery-slide"><span>top_choc_5.jpg</span></div>
+        <div class="gallery-slide"><span>top_choc_6.jpg</span></div>
+      </div>
+      <button class="gallery-btn prev" data-id="1" aria-label="Назад">
+        <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#2c2420" stroke-width="1.2"/></svg>
+      </button>
+      <button class="gallery-btn next" data-id="1" aria-label="Вперёд">
+        <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#2c2420" stroke-width="1.2"/></svg>
+      </button>
+      <div class="gallery-dots" id="dots-1"></div>
+    </div>
+
+    <!-- Информация -->
+    <div class="product-info">
+
+      <!-- Видео-рилс -->
+      <div class="video-wrap" onclick="alert('Замените на <video> тег с файлом top_choc_reel.mp4')">
+        <!--
+          ЗАГЛУШКА ВИДЕО — замените блок на:
+          <video src="img/choc/reel.mp4" autoplay muted loop playsinline style="width:100%;max-height:280px;object-fit:cover;display:block;"></video>
+        -->
+        <div class="video-play">
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M1 1l9 5.5L1 12V1Z" stroke="#9a8880" stroke-width="1.2"/></svg>
+        </div>
+        <span>top_choc_reel.mp4</span>
+      </div>
+
+      <h2>Топ шоколадный</h2>
+      <div class="price">1 890 ₽</div>
+
+      <p class="product-desc">
+        Элегантный топ халтер из атласной ткани станет отличным выбором для летних и вечерних образов. Гладкая текстура материала придаёт изделию дорогой и утончённый вид. Глубокий насыщенный шоколадный оттенок смотрится стильно и благородно, легко сочетается как с классическими, так и с повседневными вещами. Фасон с открытой спиной подчёркивает изящность и женственность, делая этот топ идеальным вариантом для жарких дней и романтичных вечеров.
+        <br><br>
+        Ткань красиво драпируется на груди и по спине — за счёт кулиски, которая позволяет посадить топ на любую грудь. Высокий воротник-халтер фиксируется на шее аккуратными пуговицами, оставляя плечи и лопатки открытыми: актуальный силуэт «американка». Носить можно под пиджак для офисного лука или как самостоятельную деталь летнего гардероба. Шёлковый блеск ткани добавляет образу роскоши, а лаконичные линии делают топ универсальным решением для любых мероприятий.
+      </p>
+
+      <!-- Калькулятор размера -->
+      <div class="size-calc">
+        <h4>Подбор размера</h4>
+        <p class="calc-note">Основной параметр — обхват груди. Остальные поля для справки.</p>
+        <div class="calc-fields">
+          <div class="calc-field">
+            <label>Грудь, см</label>
+            <input type="number" id="chest-1" placeholder="88" min="60" max="140">
+          </div>
+          <span class="calc-sep">—</span>
+          <div class="calc-field">
+            <label>Талия, см</label>
+            <input type="number" id="waist-1" placeholder="66" min="50" max="120">
+          </div>
+          <span class="calc-sep">—</span>
+          <div class="calc-field">
+            <label>Бёдра, см</label>
+            <input type="number" id="hips-1" placeholder="92" min="60" max="140">
+          </div>
+        </div>
+        <div class="calc-result" id="result-1">Введите параметры — подберём размер</div>
+
+        <button class="table-toggle" id="toggle-1">
+          <span>Таблица размеров</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </button>
+        <div class="table-wrap" id="tw-1">
+          <table>
+            <thead><tr><th>Размер</th><th>ОГ (грудь)</th><th>ОТ (талия)</th><th>ОБ (бёдра)</th></tr></thead>
+            <tbody>
+              <tr><td>42–44</td><td>84–93</td><td>60–70</td><td>88–98</td></tr>
+              <tr><td>46–48</td><td>94–104</td><td>72–82</td><td>98–108</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <button class="btn" onclick="openModal('Топ шоколадный', '1 890 ₽', 1)">
+        Купить
+      </button>
+
+    </div>
+  </div><!-- /product-card 1 -->
+
+
+<!-- ══════════════════════════════════════
+     ТОВАР 2 — ТОП ГОЛУБОЙ
+════════════════════════════════════════ -->
+  <div class="product-card reveal" id="product-2">
+
+    <div class="gallery" data-id="2">
+      <div class="gallery-track">
+        <div class="gallery-slide">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="1" stroke="#c9b9af" stroke-width="1.2"/><path d="M2 12l8-4 8 6 6-3 6 3" stroke="#c9b9af" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <span>top_blue_1.jpg</span>
+        </div>
+        <div class="gallery-slide"><span>top_blue_2.jpg</span></div>
+        <div class="gallery-slide"><span>top_blue_3.jpg</span></div>
+        <div class="gallery-slide"><span>top_blue_4.jpg</span></div>
+        <div class="gallery-slide"><span>top_blue_5.jpg</span></div>
+        <div class="gallery-slide"><span>top_blue_6.jpg</span></div>
+      </div>
+      <button class="gallery-btn prev" data-id="2" aria-label="Назад">
+        <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#2c2420" stroke-width="1.2"/></svg>
+      </button>
+      <button class="gallery-btn next" data-id="2" aria-label="Вперёд">
+        <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#2c2420" stroke-width="1.2"/></svg>
+      </button>
+      <div class="gallery-dots" id="dots-2"></div>
+    </div>
+
+    <div class="product-info">
+
+      <div class="video-wrap" onclick="alert('Замените на <video> тег с файлом top_blue_reel.mp4')">
+        <div class="video-play">
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M1 1l9 5.5L1 12V1Z" stroke="#9a8880" stroke-width="1.2"/></svg>
+        </div>
+        <span>top_blue_reel.mp4</span>
+      </div>
+
+      <h2>Топ голубой</h2>
+      <div class="price">2 290 ₽</div>
+
+      <p class="product-desc">
+        Элегантный топ халтер из атласной ткани станет отличным выбором для летних и вечерних образов. Гладкая текстура материала придаёт изделию дорогой и утончённый вид. Трендовый голубой оттенок этого лета «Ice Blue» смотрится свежо и изысканно, легко сочетается как с классическими, так и с повседневными вещами. Фасон с открытой спиной подчёркивает изящность и женственность, делая этот топ идеальным вариантом для жарких дней и романтичных вечеров.
+        <br><br>
+        Ткань красиво драпируется на груди и по спине — за счёт кулиски, которая позволяет посадить топ на любую грудь. Высокий воротник-халтер фиксируется на шее аккуратными пуговицами, оставляя плечи и лопатки открытыми: актуальный силуэт «американка». Носить можно под пиджак для офисного лука или как самостоятельную деталь летнего гардероба. Шёлковый блеск ткани добавляет образу роскоши, а лаконичные линии делают топ универсальным решением для любых мероприятий.
+      </p>
+
+      <div class="size-calc">
+        <h4>Подбор размера</h4>
+        <p class="calc-note">Основной параметр — обхват груди. Остальные поля для справки.</p>
+        <div class="calc-fields">
+          <div class="calc-field">
+            <label>Грудь, см</label>
+            <input type="number" id="chest-2" placeholder="88" min="60" max="140">
+          </div>
+          <span class="calc-sep">—</span>
+          <div class="calc-field">
+            <label>Талия, см</label>
+            <input type="number" id="waist-2" placeholder="66" min="50" max="120">
+          </div>
+          <span class="calc-sep">—</span>
+          <div class="calc-field">
+            <label>Бёдра, см</label>
+            <input type="number" id="hips-2" placeholder="92" min="60" max="140">
+          </div>
+        </div>
+        <div class="calc-result" id="result-2">Введите параметры — подберём размер</div>
+
+        <button class="table-toggle" id="toggle-2">
+          <span>Таблица размеров</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </button>
+        <div class="table-wrap" id="tw-2">
+          <table>
+            <thead><tr><th>Размер</th><th>ОГ (грудь)</th><th>ОТ (талия)</th><th>ОБ (бёдра)</th></tr></thead>
+            <tbody>
+              <tr><td>42–44</td><td>84–93</td><td>60–70</td><td>88–98</td></tr>
+              <tr><td>46–48</td><td>94–104</td><td>72–82</td><td>98–108</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <button class="btn" onclick="openModal('Топ голубой', '2 290 ₽', 2)">
+        Купить
+      </button>
+
+    </div>
+  </div><!-- /product-card 2 -->
+</div><!-- /wrap -->
+
+
+<!-- ══════════════════════════════════════
+     ОТЗЫВЫ
+════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="reviews reveal">
+    <p class="section-label">Отзывы о наших предыдущих коллекциях</p>
+    <h2>Что говорят покупательницы</h2>
+    <div class="reviews-grid">
+      <!--
+        ЗАГЛУШКИ ОТЗЫВОВ — замените каждый .review-ph на:
+        <img src="img/reviews/1.jpg" alt="Отзыв 1" style="width:100%;display:block;">
+      -->
+      <div class="review-ph">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="1" stroke="#c9b9af" stroke-width="1.2"/><path d="M2 8l5-3 5 4 4-2 6 2" stroke="#c9b9af" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <span>review_1.jpg</span>
+      </div>
+      <div class="review-ph"><span>review_2.jpg</span></div>
+      <div class="review-ph"><span>review_3.jpg</span></div>
+      <div class="review-ph"><span>review_4.jpg</span></div>
+      <div class="review-ph"><span>review_5.jpg</span></div>
+      <div class="review-ph"><span>review_6.jpg</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     ДОП. ВИДЕО + УХОД
+════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="extra reveal">
+    <div class="extra-grid">
+
+      <div>
+        <h3 class="extra-videos">Топы в движении</h3>
+        <!--
+          ЗАГЛУШКИ ДОП. ВИДЕО — замените на <video> теги
+        -->
+        <div class="extra-videos">
+          <div class="video-wrap" style="max-height:220px;" onclick="alert('extra_video_1.mp4')">
+            <div class="video-play">
+              <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M1 1l9 5.5L1 12V1Z" stroke="#9a8880" stroke-width="1.2"/></svg>
+            </div>
+            <span>extra_video_1.mp4</span>
+          </div>
+          <div class="video-wrap" style="max-height:220px;" onclick="alert('extra_video_2.mp4')">
+            <div class="video-play">
+              <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M1 1l9 5.5L1 12V1Z" stroke="#9a8880" stroke-width="1.2"/></svg>
+            </div>
+            <span>extra_video_2.mp4</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="care">
+        <h3>Уход за изделием</h3>
+        <ul class="care-list">
+          <li>Стирка при температуре до 30°C, деликатный режим или ручная стирка</li>
+          <li>Не использовать отбеливатели и хлорсодержащие средства</li>
+          <li>Не отжимать в машине — слегка отжать рукой и расправить форму</li>
+          <li>Сушить в горизонтальном положении, вдали от прямых солнечных лучей</li>
+          <li>Гладить при низкой температуре (до 110°C), через влажную ткань</li>
+          <li>Хранить сложенным или на широкой вешалке</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+
+    <div>
+      <div class="footer-logo">Собрана</div>
+    </div>
+
+    <div class="footer-socials">
+      <!-- ЗАГЛУШКИ — замените # на реальные ссылки -->
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" target="_blank" rel="noopener">ВКонтакте</a>
+      <a href="#" target="_blank" rel="noopener">TikTok</a>
+    </div>
+
+    <div class="footer-legal">
+      <!-- ЗАГЛУШКИ РЕКВИЗИТОВ — заполните перед запуском сайта -->
+      <p class="ph">ИП [Фамилия Имя Отчество]</p>
+      <p class="ph">ИНН: [000000000000]</p>
+      <p class="ph">ОГРНИП: [000000000000000]</p>
+      <p class="ph">Адрес: [юридический адрес ИП]</p>
+      <div class="footer-links">
+        <a href="offer.html" target="_blank">Публичная оферта</a>
+        <a href="privacy.html" target="_blank">Политика конфиденциальности</a>
+        <a href="consent.html" target="_blank">Согласие на обработку персональных данных</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════
+     МОДАЛЬНОЕ ОКНО ЗАКАЗА
+════════════════════════════════════════ -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-x" onclick="closeModal()" aria-label="Закрыть">&#215;</button>
+
+    <!-- Форма -->
+    <div id="form-wrap">
+      <h2 id="modal-title">Оформление заказа</h2>
+      <p class="modal-sub" id="modal-sub"></p>
+
+      <!-- Доставка -->
+      <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Способ доставки</p>
+      <div class="delivery-row">
+        <div class="del-opt on" id="opt-wb" onclick="setDelivery('wb')">Wildberries ПВЗ</div>
+        <div class="del-opt"    id="opt-sd" onclick="setDelivery('sdek')">СДЭК ПВЗ</div>
+      </div>
+
+      <!-- WB адрес -->
+      <div id="wb-block">
+        <div class="field">
+          <label>Адрес пункта выдачи Wildberries</label>
+          <input type="text" id="f-wb" placeholder="г. Москва, ул. Льва Толстого, 16" oninput="checkReady()">
+        </div>
+        <a class="wb-link" href="https://www.wildberries.ru/services/besplatnaya-dostavka" target="_blank" rel="noopener">
+          Найти ближайший ПВЗ на карте Wildberries →
+        </a>
+      </div>
+
+      <!-- СДЭК виджет -->
+      <div id="sdek-block">
+        <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Выберите пункт выдачи СДЭК</p>
+        <div id="cdek-map">
+          <!--
+            ИНТЕГРАЦИЯ СДЭК:
+            1. Подключить скрипт: <script src="https://widget.cdek.ru/widget/widgetMain.js"></script>
+            2. Раскомментировать initSDEK() в JS ниже
+            3. Удалить .sdek-ph заглушку
+          -->
+          <div class="sdek-ph">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#c9b9af" stroke-width="1.2"/><circle cx="12" cy="9" r="2.5" stroke="#c9b9af" stroke-width="1.2"/></svg>
+            <span>Виджет СДЭК</span>
+            <small>widget.cdek.ru</small>
+          </div>
+        </div>
+        <input type="hidden" id="f-sdek">
+        <p id="sdek-chosen"></p>
+      </div>
+
+      <!-- Личные данные -->
+      <div class="field" style="margin-top:20px;">
+        <label>Фамилия Имя Отчество</label>
+        <input type="text" id="f-name" placeholder="Иванова Мария Ивановна" oninput="checkReady()">
+      </div>
+      <div class="field">
+        <label>Телефон</label>
+        <input type="tel" id="f-phone" placeholder="+7 (999) 000-00-00" oninput="checkReady()">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="f-email" placeholder="mail@example.com" oninput="checkReady()">
+      </div>
+
+      <!-- Согласия -->
+      <div class="check-row">
+        <input type="checkbox" id="ch-offer" onchange="checkReady()">
+        <label for="ch-offer">
+          Принимаю условия <a href="offer.html" target="_blank">Публичной оферты</a>
+        </label>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="ch-pd" onchange="checkReady()">
+        <label for="ch-pd">
+          Согласна с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a>
+          и даю <a href="consent.html" target="_blank">согласие на обработку персональных данных</a>
+        </label>
+      </div>
+
+      <button class="btn-pay" id="btn-pay" onclick="startPayment()">Оплатить</button>
+    </div><!-- /form-wrap -->
+
+    <!-- Успех -->
+    <div class="msg" id="msg-ok">
+      <h3>Спасибо за заказ!</h3>
+      <p>Мы соберём и отправим его в течение 24 часов.</p>
+      <p style="margin-top:6px;">Детали придут на вашу почту.</p>
+    </div>
+
+    <!-- Ошибка -->
+    <div class="msg" id="msg-err">
+      <h3>Оплата не прошла</h3>
+      <p>Пожалуйста, попробуйте ещё раз.</p>
+      <ul class="error-tips">
+        <li>Проверьте наличие средств на счёте</li>
+        <li>Убедитесь, что интернет работает стабильно</li>
+        <li>Если включён VPN — отключите его и повторите попытку</li>
+      </ul>
+      <button class="btn" style="margin-top:20px;" onclick="retryPay()">Попробовать снова</button>
+    </div>
+
+  </div>
+</div><!-- /modal-bg -->
+
+
+<!-- ══════════════════════════════════════
+     СКРИПТ СДЭК (раскомментировать после подключения)
+════════════════════════════════════════ -->
+<!-- <script src="https://widget.cdek.ru/widget/widgetMain.js"></script> -->
+
+
+<script>
+// ────────────────────────────────────────
+// TINKOFF KASSA
+// Вставьте TerminalKey из ЛК Тинькофф
+// ────────────────────────────────────────
+const TERMINAL_KEY = 'ВСТАВЬТЕ_TERMINAL_KEY';
+
+// ────────────────────────────────────────
+// ГАЛЕРЕЯ
+// ────────────────────────────────────────
+const gState = {};
+
+function initGallery(id) {
+  const wrap  = document.querySelector(`.gallery[data-id="${id}"]`);
+  const track = wrap.querySelector('.gallery-track');
+  const slides = track.querySelectorAll('.gallery-slide');
+  const dotsEl = document.getElementById(`dots-${id}`);
+  const n = slides.length;
+  gState[id] = 0;
+
+  // Создаём точки
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement('span');
+    d.className = 'gallery-dot' + (i === 0 ? ' on' : '');
+    d.addEventListener('click', () => goTo(id, i));
+    dotsEl.appendChild(d);
+  }
+
+  // Кнопки
+  wrap.querySelector('.prev').addEventListener('click', () => goTo(id, (gState[id] - 1 + n) % n));
+  wrap.querySelector('.next').addEventListener('click', () => goTo(id, (gState[id] + 1) % n));
+
+  // Свайп
+  let sx = 0;
+  track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = sx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) goTo(id, (gState[id] + (dx > 0 ? 1 : -1) + n) % n);
+  });
+}
+
+function goTo(id, idx) {
+  const wrap  = document.querySelector(`.gallery[data-id="${id}"]`);
+  const n = wrap.querySelectorAll('.gallery-slide').length;
+  gState[id] = (idx + n) % n;
+  wrap.querySelector('.gallery-track').style.transform = `translateX(-${gState[id] * 100}%)`;
+  document.getElementById(`dots-${id}`).querySelectorAll('.gallery-dot').forEach((d, i) => {
+    d.classList.toggle('on', i === gState[id]);
+  });
+}
+
+initGallery(1);
+initGallery(2);
+
+
+// ────────────────────────────────────────
+// КАЛЬКУЛЯТОР РАЗМЕРА
+// Решение: приоритет — обхват груди
+// ────────────────────────────────────────
+function calcSize(id) {
+  const chest = parseFloat(document.getElementById(`chest-${id}`).value);
+  const el    = document.getElementById(`result-${id}`);
+
+  if (!chest || isNaN(chest)) {
+    el.textContent = 'Введите параметры — подберём размер';
+    el.classList.remove('on');
+    return;
+  }
+
+  let size, note;
+  if (chest < 84) {
+    size = '42–44';
+    note = 'Ваши параметры ниже таблицы — рекомендуем 42–44';
+  } else if (chest < 94) {
+    size = '42–44';
+    note = 'Рекомендуемый размер';
+  } else if (chest <= 104) {
+    size = '46–48';
+    note = 'Рекомендуемый размер';
+  } else {
+    size = '46–48';
+    note = 'Ваши параметры выше таблицы — рекомендуем 46–48';
+  }
+
+  el.innerHTML = `<strong style="font-size:17px;margin-right:10px;">${size}</strong><span style="font-size:13px;color:var(--muted);">${note}</span>`;
+  el.classList.add('on');
+}
+
+// Вешаем на все поля калькулятора
+['chest-1','waist-1','hips-1'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => calcSize(1));
+});
+['chest-2','waist-2','hips-2'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => calcSize(2));
+});
+
+
+// ────────────────────────────────────────
+// ТАБЛИЦА РАЗМЕРОВ — разворот
+// ────────────────────────────────────────
+[1, 2].forEach(id => {
+  document.getElementById(`toggle-${id}`).addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById(`tw-${id}`).classList.toggle('open');
+  });
+});
+
+
+// ────────────────────────────────────────
+// МОДАЛЬНОЕ ОКНО
+// ────────────────────────────────────────
+let activeProduct = '';
+let activePrice   = '';
+let activeDelivery = 'wb';
+
+function openModal(product, price, pid) {
+  activeProduct = product;
+  activePrice   = price;
+  document.getElementById('modal-sub').textContent = `${product} — ${price}`;
+  showPanel('form');
+  setDelivery('wb');
+  clearForm();
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-bg').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function clearForm() {
+  ['f-wb','f-name','f-phone','f-email','f-sdek'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('ch-offer').checked = false;
+  document.getElementById('ch-pd').checked    = false;
+  document.getElementById('sdek-chosen').style.display = 'none';
+  document.getElementById('btn-pay').classList.remove('on');
+}
+
+
+// ────────────────────────────────────────
+// ДОСТАВКА
+// ────────────────────────────────────────
+let sdekReady = false;
+
+function setDelivery(type) {
+  activeDelivery = type;
+  document.getElementById('opt-wb').classList.toggle('on', type === 'wb');
+  document.getElementById('opt-sd').classList.toggle('on', type === 'sdek');
+  document.getElementById('wb-block').style.display   = type === 'wb'   ? 'block' : 'none';
+  document.getElementById('sdek-block').style.display = type === 'sdek' ? 'block' : 'none';
+  if (type === 'sdek') initSDEK();
+  checkReady();
+}
+
+function initSDEK() {
+  if (sdekReady) return;
+  sdekReady = true;
+  // ──────────────────────────────────────────────────
+  // ПОДКЛЮЧЕНИЕ СДЭК:
+  // 1. Раскомментировать <script> тег виджета выше
+  // 2. Раскомментировать блок ниже
+  // ──────────────────────────────────────────────────
+  /*
+  new ISDEKWidjet({
+    defaultCity: 'Москва',
+    cityFrom:    'Москва',
+    country:     'Russia',
+    goods: [{ length: 20, width: 20, height: 5, weight: 0.5 }],
+    selected: function(address, city, pvz) {
+      const full = `${city}, ${address}`;
+      document.getElementById('f-sdek').value = full;
+      const el = document.getElementById('sdek-chosen');
+      el.textContent = `Выбран ПВЗ: ${full}`;
+      el.style.display = 'block';
+      checkReady();
+    },
+    onReady: function() {}
+  });
+  */
+}
+
+
+// ────────────────────────────────────────
+// ВАЛИДАЦИЯ ФОРМЫ
+// ────────────────────────────────────────
+function checkReady() {
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.replace(/\D/g, '');
+  const email = document.getElementById('f-email').value.trim();
+  const offer = document.getElementById('ch-offer').checked;
+  const pd    = document.getElementById('ch-pd').checked;
+
+  let delivery = false;
+  if (activeDelivery === 'wb') {
+    delivery = document.getElementById('f-wb').value.trim().length > 2;
+  } else {
+    delivery = document.getElementById('f-sdek').value.trim().length > 2;
+  }
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const phoneOk = phone.length >= 10;
+  const nameOk  = name.split(' ').length >= 2;
+
+  const ok = nameOk && phoneOk && emailOk && delivery && offer && pd;
+  document.getElementById('btn-pay').classList.toggle('on', ok);
+}
+
+
+// ────────────────────────────────────────
+// ОПЛАТА ЧЕРЕЗ TINKOFF KASSA
+// Документация: https://www.tbank.ru/kassa/dev/payments/
+// ────────────────────────────────────────
+function startPayment() {
+  const orderId = `SOBRANA-${Date.now()}`;
+  const amount  = parseInt(activePrice.replace(/\D/g, '')) * 100; // в копейках
+
+  const deliveryAddr = activeDelivery === 'wb'
+    ? `WB: ${document.getElementById('f-wb').value.trim()}`
+    : `СДЭК: ${document.getElementById('f-sdek').value.trim()}`;
+
+  const payload = {
+    TerminalKey: TERMINAL_KEY,
+    Amount:      amount,
+    OrderId:     orderId,
+    Description: `${activeProduct}. ${deliveryAddr}`,
+    SuccessURL:  `${location.origin}${location.pathname}?status=ok`,
+    FailURL:     `${location.origin}${location.pathname}?status=fail`,
+    DATA: {
+      Name:  document.getElementById('f-name').value.trim(),
+      Phone: document.getElementById('f-phone').value.trim(),
+      Email: document.getElementById('f-email').value.trim(),
+    },
+    Receipt: {
+      Email:    document.getElementById('f-email').value.trim(),
+      Phone:    document.getElementById('f-phone').value.trim(),
+      Taxation: 'usn_income',
+      Items: [{
+        Name:     activeProduct,
+        Price:    amount,
+        Quantity: 1,
+        Amount:   amount,
+        Tax:      'none',
+        PaymentMethod: 'full_prepayment',
+        PaymentObject: 'commodity',
+      }]
+    }
+  };
+
+  fetch('https://securepay.tinkoff.ru/v2/Init', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload),
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.Success && data.PaymentURL) {
+      window.location.href = data.PaymentURL;
+    } else {
+      showPanel('error');
+    }
+  })
+  .catch(() => showPanel('error'));
+}
+
+function retryPay() { showPanel('form'); }
+
+function showPanel(panel) {
+  document.getElementById('form-wrap').style.display = panel === 'form'  ? 'block' : 'none';
+  document.getElementById('msg-ok').classList.toggle('show',  panel === 'success');
+  document.getElementById('msg-err').classList.toggle('show', panel === 'error');
+}
+
+
+// ────────────────────────────────────────
+// ОБРАБОТКА ВОЗВРАТА ОТ ТИНЬКОФФ
+// Тинькофф редиректит обратно с ?status=ok / ?status=fail
+// ────────────────────────────────────────
+(function handleReturn() {
+  const p = new URLSearchParams(location.search);
+  if (!p.has('status')) return;
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  showPanel(p.get('status') === 'ok' ? 'success' : 'error');
+  history.replaceState({}, '', location.pathname);
+})();
+
+
+// ────────────────────────────────────────
+// SCROLL REVEAL
+// ────────────────────────────────────────
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>
