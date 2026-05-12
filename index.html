@@ -232,7 +232,7 @@
       -moz-appearance: textfield;
     }
     .calc-field input::-webkit-inner-spin-button,
-    .calc-field input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .calc-field input::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; }
     .calc-field input:focus { border-color: var(--accent); }
 
     .calc-result {
@@ -301,6 +301,25 @@
       margin-top: 20px;
     }
     .btn:hover { background: var(--accent); }
+
+    .btn-outline {
+      display: block;
+      width: 100%;
+      padding: 15px 24px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: border-color var(--r), color var(--r);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── REVIEWS ─────────────────────────── */
     .reviews { padding: 80px 0; border-top: 1px solid var(--border); }
@@ -729,6 +748,9 @@
       <button class="btn" onclick="openModal('Топ шоколадный', '1 890 ₽', 1)">
         Купить
       </button>
+      <a class="btn-outline" href="https://t.me/Anastasia_Tali" target="_blank" rel="noopener">
+        Задать вопрос
+      </a>
 
     </div>
   </div><!-- /product-card 1 -->
@@ -819,6 +841,9 @@
       <button class="btn" onclick="openModal('Топ голубой', '2 290 ₽', 2)">
         Купить
       </button>
+      <a class="btn-outline" href="https://t.me/Anastasia_Tali" target="_blank" rel="noopener">
+        Задать вопрос
+      </a>
 
     </div>
   </div><!-- /product-card 2 -->
