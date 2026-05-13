@@ -103,7 +103,7 @@
       gap: 6px;
     }
     .photo-item {
-      aspect-ratio: 4/3;
+      aspect-ratio: 4/5;
       overflow: hidden;
       background: var(--bg-alt);
     }
@@ -179,8 +179,36 @@
     .prev-btn.on { background: var(--text); color: var(--white); }
 
     #page-wrap { transition: max-width 0.35s ease, margin 0.35s ease; }
-    #page-wrap.mobile { max-width: 390px; margin: 0 auto;
-      box-shadow: 0 0 0 1px var(--border), 0 8px 40px rgba(0,0,0,.12); }
+    #page-wrap.mobile {
+      max-width: 390px; margin: 0 auto;
+      box-shadow: 0 0 0 1px var(--border), 0 8px 40px rgba(0,0,0,.12);
+      overflow: hidden;
+    }
+
+    /* Все мобильные переопределения — работают и от переключателя, и на реальном телефоне */
+    #page-wrap.mobile header       { padding: 18px 20px; }
+    #page-wrap.mobile footer       { padding: 40px 20px; }
+    #page-wrap.mobile .wrap        { padding: 0 20px; }
+    #page-wrap.mobile .product-card,
+    #page-wrap.mobile .extra-grid  { grid-template-columns: 1fr; gap: 28px; }
+    #page-wrap.mobile .product-card { padding: 48px 0; }
+    #page-wrap.mobile .product-info h2 { font-size: 26px; }
+    #page-wrap.mobile .product-desc    { font-size: 14px; }
+    #page-wrap.mobile .calc-fields    { flex-direction: column; gap: 8px; }
+    #page-wrap.mobile .calc-sep       { display: none; }
+    #page-wrap.mobile .reel-box       { width: 52%; }
+    #page-wrap.mobile .reviews-grid   { grid-template-columns: 1fr 1fr; }
+    #page-wrap.mobile .footer-inner   { grid-template-columns: 1fr; gap: 32px; }
+    #page-wrap.mobile .photo-grid     { gap: 4px; }
+    #page-wrap.mobile .size-calc      { padding: 18px; }
+
+    /* Защита от переполнения текста */
+    #page-wrap.mobile * {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+    #page-wrap.mobile img { max-width: 100%; height: auto; }
 
     /* ── PRODUCT INFO ────────────────────── */
     .product-info h2 { font-size: 34px; margin-bottom: 6px; }
@@ -233,6 +261,7 @@
       outline: none;
       transition: border-color var(--r);
       -moz-appearance: textfield;
+      appearance: textfield;
     }
     .calc-field input::-webkit-inner-spin-button,
     .calc-field input::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; }
@@ -584,6 +613,9 @@
 
     /* ── RESPONSIVE ──────────────────────── */
     @media (max-width: 900px) {
+      body { overflow-x: hidden; }
+      * { word-break: break-word; overflow-wrap: break-word; max-width: 100%; }
+      img { max-width: 100%; height: auto; }
       .wrap { padding: 0 20px; }
       header { padding: 18px 20px; }
       footer { padding: 48px 20px; }
